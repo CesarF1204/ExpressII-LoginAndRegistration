@@ -3,7 +3,7 @@ const user = require('../models/user');
 class Users{
     //renders the index
     index(req, res) {
-        res.render("index", {errorMessage: req.session.errors, errorEmail: req.session.error_email_valid, errorRequired: req.session.error_required, registeredSuccess: req.session.registered_success});
+        res.render("index", {errorMessage: req.session.errors, errorEmail: req.session.error_email_valid, errorRequired: req.session.error_required, registeredSuccess: req.session.registered_success, passwordMismatch: req.session.error_confirm_password});
         req.session.destroy();
     }
     //renders the registration form and handles the registration process and email validation
@@ -16,8 +16,9 @@ class Users{
                     req.session.error_email_valid = 'Email has been used, please try again.';
                 } else if(req.body.email == '') {
                     req.session.error_required = 'Please fill up the form.'
-                }
-                else{
+                } else if(req.body.password !== req.body.confirm_password){
+                    req.session.error_confirm_password = 'Password mismatch. Please try again';
+                } else {
                     console.log('different email, can register');
                     req.session.registered_success = 'Registered Successfully!';
                     user.registered(req.body);

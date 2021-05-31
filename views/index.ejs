@@ -38,6 +38,8 @@
                 <p class='errors'><%= errorRequired %></p>
             <% } else if(typeof errorEmail !== 'undefined') { %>
                 <p class='errors'><%= errorEmail %></p>
+            <% } else if(typeof passwordMismatch !== 'undefined') { %>
+                <p class='errors'><%= passwordMismatch %></p>
             <% } else if(typeof registeredSuccess !== 'undefined') { %>
                 <p class='success'><%= registeredSuccess %></p>
             <% } %>
